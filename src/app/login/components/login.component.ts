@@ -1,11 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../authentication/services/authentication.service";
-import {NotifierService} from "angular-notifier";
 import {UserModel} from "../../user/model/userModel";
 import {Subscription} from "rxjs";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {NotificationTypeEnum} from "../../notifications/types/notificationType.enum";
 import {HeaderType} from "../../http/type/HeaderType";
 
 @Component({
@@ -19,9 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     public loginErrorMessage: string = '';
     public subscriptions: Subscription[] = [];
 
-    constructor(private router: Router,
-                private authenticationService: AuthenticationService,
-                private notificationService: NotifierService) {
+    constructor(private router: Router, private authenticationService: AuthenticationService) {
     }
 
     ngOnInit(): void {
@@ -45,19 +41,10 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.showLoading = false;
                 this.showBanner = true;
                 this.loginErrorMessage = httpErrorResponse.error.responseDescription;
-                this.sendErrorNotification(NotificationTypeEnum.ERROR, httpErrorResponse.error.responseDescription);
             }));
     }
 
     ngOnDestroy() {
         this.subscriptions.forEach((subscription) => subscription.unsubscribe())
-    }
-
-    private sendErrorNotification(notificationType: NotificationTypeEnum, message: string) {
-        if (message) {
-            this.notificationService.notify(notificationType, message);
-        } else {
-            this.notificationService.notify(notificationType, 'En error occured, please try again default message in login component');
-        }
     }
 }
