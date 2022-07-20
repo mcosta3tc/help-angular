@@ -1,91 +1,89 @@
-<div class="container mx-auto">
-    <div class="flex justify-center px-6 my-12">
-        <!-- Row -->
-        <div class="w-full xl:w-3/4 lg:w-11/12 flex justify-center">
-            <div class="w-1/2 bg-white p-5 rounded-lg">
-                <h1 class="text-5xl font-bold text-center text-gray-700 dark:text-white">Help</h1>
-
-                <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm.value, userEmailInput.errors)"
-                      class="px-8 pt-8 pb-8 mb-4 bg-white rounded">
-                    <div class="mb-4 md:flex md:justify-between">
-                        <div class="mb-4 md:mr-2 md:mb-0">
-                            <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-                                   for="userFirstNameInputField">
-                                Prénom
-                            </label>
-                            <input
-                                #userFirstNameInput="ngModel"
-                                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                id="userFirstNameInputField"
-                                name="userFirstName"
-                                ngModel
-                                placeholder="Pierre"
-                                required
-                                type="text"
-                            />
-                            <span *ngIf="userFirstNameInput.invalid && userFirstNameInput.touched"
-                                  class="text-red-500 italic text-sm">Veuillez saisir votre prénom. </span>
-                        </div>
-                        <div class="md:ml-2">
-                            <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200" for="userLastName">
-                                Nom
-                            </label>
-                            <input
-                                #userLastNameInput="ngModel"
-                                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                id="userLastName"
-                                name="userLastName"
-                                ngModel
-                                placeholder="Duclos"
-                                required
-                                type="text"
-                            />
-                            <span *ngIf="userLastNameInput.invalid && userLastNameInput.touched"
-                                  class="text-red-500 italic text-sm">Veuillez saisir votre nom. </span>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200" for="userEmailField">
-                            Email
+<div class="flex w-full h-screen justify-center px-6 bg-white dark:bg-gray-900">
+    <!-- Row -->
+    <div class="xl:w-3/4 lg:w-11/12 flex justify-center pt-8">
+        <div class="p-5 rounded-lg bg-white dark:bg-gray-900">
+            <h1 class="text-5xl font-bold text-center text-gray-700 dark:text-white">Help</h1>
+            <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm.value)"
+                  class="px-8 pt-8 pb-8 mb-4 rounded">
+                <div class="mb-4 md:flex md:justify-between">
+                    <div class="mb-4 md:mr-2 md:mb-0">
+                        <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                               for="userFirstNameInputField">
+                            Prénom
                         </label>
                         <input
-                            #userEmailInput="ngModel"
+                            #userFirstNameInput="ngModel"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                            email
-                            id="userEmailField"
-                            name="userEmail"
+                            id="userFirstNameInputField"
+                            name="userFirstName"
                             ngModel
-                            placeholder="pierre.duclos@gmail.com"
-                            required
-                            type="email"
-                        />
-                        <span *ngIf="userEmailInput.invalid && userEmailInput.touched"
-                              class="text-red-500 italic text-sm">Veuillez saisir votre email. </span>
-                    </div>
-                    <div class="mb-8">
-                        <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200" for="userEmailField">
-                            Nom d'utilisateur
-                        </label>
-                        <input
-                            #userAccountNameField="ngModel"
-                            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                            id="userAccountNameField"
-                            name="userAccountName"
-                            ngModel
-                            placeholder="pierre.duclos"
+                            placeholder="Pierre"
                             required
                             type="text"
                         />
-                        <span *ngIf="userAccountNameField.invalid && userAccountNameField.touched"
-                              class="text-red-500 italic text-sm">Veuillez saisir votre identifiant. </span>
+                        <span *ngIf="userFirstNameInput.invalid && userFirstNameInput.touched"
+                              class="text-red-500 italic text-sm">Veuillez saisir votre prénom. </span>
                     </div>
-                    <div class="mb-6 text-center">
-                        <button
-                                [disabled]="registerForm.invalid || showLoading"
-                                class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 disabled:opacity-25"
-                                type="submit"
+                    <div class="md:ml-2">
+                        <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200" for="userLastName">
+                            Nom
+                        </label>
+                        <input
+                            #userLastNameInput="ngModel"
+                            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                            id="userLastName"
+                            name="userLastName"
+                            ngModel
+                            placeholder="Duclos"
+                            required
+                            type="text"
+                        />
+                        <span *ngIf="userLastNameInput.invalid && userLastNameInput.touched"
+                              class="text-red-500 italic text-sm">Veuillez saisir votre nom. </span>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200" for="userEmailField">
+                        Email
+                    </label>
+                    <input
+                        #userEmailInput="ngModel"
+                        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                        email
+                        id="userEmailField"
+                        name="userEmail"
+                        ngModel
+                        placeholder="pierre.duclos@gmail.com"
+                        required
+                        type="email"
+                    />
+                    <span *ngIf="userEmailInput.invalid && userEmailInput.touched"
+                          class="text-red-500 italic text-sm">Veuillez saisir votre email. </span>
+                </div>
+                <div class="mb-8">
+                    <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200" for="userEmailField">
+                        Nom d'utilisateur
+                    </label>
+                    <input
+                        #userAccountNameField="ngModel"
+                        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                        id="userAccountNameField"
+                        name="userAccountName"
+                        ngModel
+                        placeholder="pierre.duclos"
+                        required
+                        type="text"
+                    />
+                    <span *ngIf="userAccountNameField.invalid && userAccountNameField.touched"
+                          class="text-red-500 italic text-sm">Veuillez saisir votre identifiant. </span>
+                </div>
+                <div class="mb-6 text-center">
+                    <button
+                            [disabled]="registerForm.invalid || showLoading"
+                            class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 disabled:opacity-25"
+                            type="submit"
 
-                        >
+                    >
                 <span *ngIf="showLoading">
                 <svg class="inline mr-3 w-4 h-4 text-white animate-spin" fill="none" role="status"
                      viewBox="0 0 100 101"
@@ -99,56 +97,56 @@
                 </svg>
                 Chargement
                 </span>
-                            <span *ngIf="!showLoading">
+                        <span *ngIf="!showLoading">
                 S'inscrire
                 </span>
-                        </button>
+                    </button>
 
-                    </div>
-                    <hr class="mb-6 border-t"/>
-                    <div class="text-center">
-                        <a
-                                class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                href="#"
-                        >
-                            Vous avez oublié votre mot de passe ?
-                        </a>
-                    </div>
-                    <div class="text-center">
-                        <p class="mt-6 text-sm text-center text-gray-400">Vous avez déjà un compte ? <a
-                                class="text-blue-500 focus:outline-none focus:underline hover:text-blue-800"
-                                routerLink="/login">Se connecter</a>.</p>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <hr class="mb-6 border-t"/>
+                <div class="text-center">
+                    <a
+                            class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                            href="#"
+                    >
+                        Vous avez oublié votre mot de passe ?
+                    </a>
+                </div>
+                <div class="text-center">
+                    <p class="mt-6 text-sm text-center text-gray-400">Vous avez déjà un compte ? <a
+                            class="text-blue-500 focus:outline-none focus:underline hover:text-blue-800"
+                            routerLink="/login">Se connecter</a>.</p>
+                </div>
+            </form>
         </div>
     </div>
-    <!-- error notification -->
-    <div *ngIf="showBanner"
-         class="relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md py-5 pl-6 pr-8 sm:pr-6 mt-6 w-1/2 mx-auto">
-        <div class="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
-            <div class="text-blue-400">
-                <svg class="w-6 sm:w-5 h-6 sm:h-5" fill="none" stroke="currentColor" stroke-width="2"
-                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                          stroke-linejoin="round"/>
-                </svg>
-            </div>
-
-            <div class="text-sm font-medium ml-3"></div>
-        </div>
-        <div class="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">
-            {{ registerMessage }}
-        </div>
-        <div
-                (click)="showBanner = false"
-                class="absolute sm:relative sm:top-auto sm:right-auto ml-auto right-4 top-4 text-gray-400 hover:text-gray-800 cursor-pointer"
-        >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2"></path>
+</div>
+<!-- error notification -->
+<div *ngIf="showBanner"
+     class="relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md py-5 pl-6 pr-8 sm:pr-6 mt-6 w-1/2 mx-auto">
+    <div class="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
+        <div class="text-blue-400">
+            <svg class="w-6 sm:w-5 h-6 sm:h-5" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                      stroke-linejoin="round"/>
             </svg>
         </div>
+
+        <div class="text-sm font-medium ml-3"></div>
     </div>
+    <div class="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">
+        {{ registerMessage }}
+    </div>
+    <div
+            (click)="showBanner = false"
+            class="absolute sm:relative sm:top-auto sm:right-auto ml-auto right-4 top-4 text-gray-400 hover:text-gray-800 cursor-pointer"
+    >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2"></path>
+        </svg>
+    </div>
+
 </div>
