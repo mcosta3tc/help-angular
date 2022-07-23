@@ -15,6 +15,9 @@ export class UserComponent implements OnInit {
     public notificationMsg: string = '';
     public showBanner: boolean = true;
     public isFetchingData: boolean = false;
+    public showModal = false;
+    public selectedUser: UserModel | undefined;
+
     private titleSubject = new BehaviorSubject<string>('');
     public titleAction$ = this.titleSubject.asObservable();
 
@@ -23,6 +26,11 @@ export class UserComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllUsers(true);
+    }
+
+    public toggleModal(selectedUser: UserModel): void {
+        this.showModal = !this.showModal;
+        this.selectedUser = selectedUser;
     }
 
     public changeTitle(title: string): void {

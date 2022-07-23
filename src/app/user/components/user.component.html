@@ -9,16 +9,30 @@
                     <li>
                         <a (click)="changeTitle('Users')">
                             <button
-                                    class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 disabled:opacity-25"
-                                    type="submit">Utilisateurs
+                                    class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 disabled:opacity-25 flex items-center"
+                                    type="submit">
+                                <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" stroke-width="2"
+                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                                Utilisateurs
                             </button>
                         </a>
                     </li>
                     <li>
                         <a (click)="changeTitle('Paramètres')">
                             <button
-                                    class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 disabled:opacity-25"
-                                    type="submit">Paramètres
+                                    class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 disabled:opacity-25 flex items-center"
+                                    type="submit">
+                                <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor"
+                                     stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                                Paramètres
                             </button>
                         </a>
                     </li>
@@ -49,8 +63,15 @@
             </svg>
         </form>
         <button
-                class="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 disabled:opacity-25"
-                type="submit">Utilisateurs
+                class="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 disabled:opacity-25 flex items-center"
+                type="submit">
+            <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </svg>
+            Ajouter un compte
         </button>
         <button
                 class="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 disabled:opacity-25"
@@ -68,7 +89,15 @@
                           fill="currentColor"/>
                 </svg>
                 </span>
-            <span (click)="getAllUsers(true)" *ngIf="!isFetchingData">Rafraichir</span>
+            <span (click)="getAllUsers(true)" *ngIf="!isFetchingData" class="flex items-center"><svg
+                    class="h-5 w-5 mr-1"
+                    fill="none" stroke="currentColor"
+                    stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+</svg>Rafraichir</span>
         </button>
     </div>
     <!-- component -->
@@ -108,8 +137,10 @@
                 </tr>
                 </thead>
                 <tbody *ngFor="let user of usersList">
-                <tr>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+
+
+                <tr class="cursor-pointer">
+                    <td (click)="toggleModal(user)" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="flex items-center">
                             <div class="flex-shrink-0 w-10 h-10">
                                 <img alt=""
@@ -118,21 +149,21 @@
                             </div>
                         </div>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td (click)="toggleModal(user)" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">{{user?.id}}</p>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td (click)="toggleModal(user)" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">
                             {{ user?.userFirstName }}
                         </p>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td (click)="toggleModal(user)" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">{{user?.userLastName}}</p>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td (click)="toggleModal(user)" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">{{ user?.userAccountName }}</p>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td (click)="toggleModal(user)" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">{{ user?.userEmail }}</p>
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -191,5 +222,93 @@
             </div>
         </div>
     </div>
+
+
+    <div *ngIf="showModal"
+         class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+        <div class="relative w-auto my-6 mx-auto max-w-6xl">
+            <!--content-->
+            <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <!--header-->
+                <div class="flex justify-end">
+                    <button (click)="showModal = !showModal"
+                            class="text-gray-700 text-3xl hover:text-gray-500 py-2 px-4">
+                        ×
+                    </button>
+                </div>
+                <!--body-->
+                <!-- component -->
+                <div class="relative max-w-md mx-auto md:max-w-2xl mt-6 min-w-0 break-words bg-white w-full mb-6 rounded-xl mt-16">
+                    <div class="px-6">
+                        <div class="flex flex-wrap justify-center">
+                            <div class="w-full flex justify-center">
+                                <div class="relative">
+                                    <img alt="profileImage"
+                                         class="rounded-full bg-white p-2 rounded-full shadow align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
+                                         src="{{ selectedUser?.userProfilePictureLink }}"/>
+                                </div>
+                            </div>
+                            <div class="w-full text-center mt-20">
+                            </div>
+                        </div>
+                        <div class="text-center mt-2">
+                            <h3 class="text-2xl text-slate-700 font-bold leading-normal mb-1">{{ selectedUser?.userFirstName + ' ' + selectedUser?.userLastName }}</h3>
+                            <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
+                                <span class="mr-2 text-slate-400 opacity-75">Etat du compte :</span> <span
+                                    [hidden]="!selectedUser?.isUserConnected"
+                                    class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                        <span [hidden]="!selectedUser?.isUserConnected"
+                                              class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                                        <span [hidden]="!selectedUser?.isUserConnected" class="relative">Actif</span>
+                                    </span>
+                                <span
+                                        [hidden]="selectedUser?.isUserConnected"
+                                        class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                                        <span [hidden]="selectedUser?.isUserConnected"
+                                              class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+                                        <span [hidden]="selectedUser?.isUserConnected" class="relative">Inactif</span>
+                                    </span>
+
+                            </div>
+                            <div *ngIf="selectedUser?.userLastConnectionToDisplay"
+                                 class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
+                                <span class="mr-2 text-slate-400 opacity-75">Dernière connexion :</span> {{ selectedUser?.userLastConnectionToDisplay | date:'medium' }}
+                            </div>
+                            <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
+                                <span class="mr-2 text-slate-400 opacity-75">Compte créer le :</span> {{ selectedUser?.userSignUpDate | date:'medium'  }}
+                            </div>
+                        </div>
+                        <div class="mt-6 py-6 border-t border-slate-200 text-center">
+                            <div class="flex flex-wrap justify-center">
+                                <div class="w-full px-4">
+                                    <p class="font-light leading-relaxed text-slate-600 mb-4"><span
+                                            class="font-bold">Id :</span> 123205032
+                                    </p>
+                                </div>
+                                <div class="w-full px-4">
+                                    <p class="font-light leading-relaxed text-slate-600 mb-4"><span
+                                            class="font-bold">Email : </span>
+                                        : {{ selectedUser?.userEmail}}
+                                    </p>
+                                </div>
+                                <div class="w-full px-4">
+                                    <p class="font-light leading-relaxed text-slate-600 mb-4"><span
+                                            class="font-bold">Role : </span><span
+                                            class="lowercase">{{ selectedUser?.userRole?.substring( 5 )?.replace( '_', ' ' )}}</span>
+                                    </p>
+                                </div>
+                                <div class="w-full px-4">
+                                    <p class="font-light leading-relaxed text-slate-600 mb-4"><span
+                                            class="font-bold">Id : </span> 123205032
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
 </div>
 
