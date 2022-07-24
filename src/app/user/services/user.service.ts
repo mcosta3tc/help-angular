@@ -51,7 +51,7 @@ export class UserService {
         return null;
     }
 
-    public createUserFormData(connectedUserAccountName: string, user: UserModel, userProfileImage: File): FormData {
+    public createUserFormData(connectedUserAccountName: string | null, user: UserModel, userProfileImage: File | any): FormData {
         const formData = new FormData();
         formData.append('currentUserFirstName', 'connectedUserAccountName');
         formData.append('userFirstName', user.userFirstName);

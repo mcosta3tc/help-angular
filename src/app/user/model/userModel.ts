@@ -1,5 +1,5 @@
 export class UserModel {
-    public id!: number;
+    public userIdentifier!: string;
     public userFirstName: string;
     public userLastName: string;
     public userAccountName: string;
