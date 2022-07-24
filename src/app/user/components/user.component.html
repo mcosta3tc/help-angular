@@ -56,7 +56,8 @@
     <div class="w-3/4 mx-auto mt-8 flex justify-end gap-4 flex justify-end items-center">
         <form #searchForm="ngForm" class="relative w-max">
             <input (ngModelChange)="searchUsers(searchForm.value.searchText)"
-                   class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none hover:w-full hover:border-blue-400 focus:w-full focus:cursor-text focus:border-blue-400 focus:pl-16 focus:pr-4 dark:text-white text-gray-700" name="searchText" ngModel placeholder="Rechercher"
+                   class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none hover:w-full hover:border-blue-400 focus:w-full focus:cursor-text focus:border-blue-400 focus:pl-16 focus:pr-4 dark:text-white text-gray-700"
+                   name="searchText" ngModel placeholder="Rechercher"
                    type="search"/>
             <svg class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5 peer-focus:border-blue-400 peer-focus:stroke-blue-400"
                  fill="none"
@@ -201,21 +202,35 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div
                                 [ngClass]="{hidden : !user?.isUserConnected}"
-                                class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight mr-2">
                                         <span [ngClass]="{hidden : !user?.isUserConnected}"
                                               class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
                             <span [ngClass]="{hidden : !user?.isUserConnected}" class="relative">Actif</span>
                         </div>
                         <div [ngClass]="{hidden : user?.isUserConnected}"
-                             class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight"><span
+                             class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight mr-2"><span
                                 [ngClass]="{hidden : user?.isUserConnected}"
                                 class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span><span
                                 [ngClass]="{hidden : user?.isUserConnected}" class="relative">Inactif</span>
                         </div>
+                        <div
+                                [ngClass]="{hidden : !user?.isUserNotBanned}"
+                                class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                        <span [ngClass]="{hidden : !user?.isUserNotBanned}"
+                                              class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                            <span [ngClass]="{hidden : !user?.isUserNotBanned}" class="relative">Débloqué</span>
+                        </div>
+                        <div [ngClass]="{hidden : user?.isUserNotBanned}"
+                             class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight"><span
+                                [ngClass]="{hidden : user?.isUserNotBanned}"
+                                class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span><span
+                                [ngClass]="{hidden : user?.isUserNotBanned}" class="relative">Bloqué</span>
+                        </div>
                     </td>
                     <td class="py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="border w-fit rounded-xl shadow-sm">
-                            <button class="px-4 py-2 rounded-l-xl text-white m-0 bg-blue-400 hover:bg-blue-300 transition">
+                            <button (click)="editUser(user)"
+                                    class="px-4 py-2 rounded-l-xl text-white m-0 bg-blue-400 hover:bg-blue-300 transition">
                                 Editer
                             </button>
                             <button class="px-4 py-2 rounded-r-xl bg-neutral-50 hover:bg-neutral-100 transition">
@@ -262,21 +277,52 @@
                         <div class="text-center mt-2">
                             <h3 class="text-2xl text-slate-700 font-bold leading-normal mb-1">{{ selectedUser?.userFirstName + ' ' + selectedUser?.userLastName }}</h3>
                             <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
-                                <span class="mr-2 text-slate-400 opacity-75">Etat du compte :</span> <span
-                                    [hidden]="!selectedUser?.isUserConnected"
-                                    class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                <span class="mr-2 text-slate-400 opacity-75">Etat du compte : </span>
+                                <span
+                                        [ngClass]="{'hidden' : !selectedUser?.isUserConnected}"
+                                        class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight mr-2">
                                         <span [hidden]="!selectedUser?.isUserConnected"
-                                              class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                        <span [hidden]="!selectedUser?.isUserConnected" class="relative">Actif</span>
+                                              class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
+
+                                        </span>
+                                        <span [hidden]="!selectedUser?.isUserConnected" class="relative">
+                                            Actif
+                                        </span>
                                     </span>
                                 <span
-                                        [hidden]="selectedUser?.isUserConnected"
-                                        class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-                                        <span [hidden]="selectedUser?.isUserConnected"
-                                              class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
-                                        <span [hidden]="selectedUser?.isUserConnected" class="relative">Inactif</span>
+                                        [ngClass]="{'hidden' : selectedUser?.isUserConnected}"
+                                        class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight mr-2">
+                                        <span [ngClass]="{'hidden' : selectedUser?.isUserConnected}"
+                                              class="absolute inset-0 bg-red-200 opacity-50 rounded-full">
+                                        </span>
+                                        <span [ngClass]="{'hidden' : selectedUser?.isUserConnected}" class="relative">
+                                            Inactif
+                                        </span>
                                     </span>
+                                <span
+                                        [ngClass]="{'hidden' : !selectedUser?.isUserNotBanned}"
+                                        class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                        <span
+                                                [ngClass]="{'hidden' : !selectedUser?.isUserNotBanned}"
+                                                class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
 
+                                        </span>
+                                        <span
+                                                [ngClass]="{'hidden' : !selectedUser?.isUserNotBanned}"
+                                                class="relative">
+                                            Compte Débloqué
+                                        </span>
+                                    </span>
+                                <span
+                                        [ngClass]="{'hidden' : selectedUser?.isUserNotBanned}"
+                                        class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                                        <span [ngClass]="{'hidden' : selectedUser?.isUserNotBanned}"
+                                              class="absolute inset-0 bg-red-200 opacity-50 rounded-full">
+                                        </span>
+                                        <span [ngClass]="{'hidden' : selectedUser?.isUserNotBanned}" class="relative">
+                                            Bloqué
+                                        </span>
+                                    </span>
                             </div>
                             <div *ngIf="selectedUser?.userLastConnectionToDisplay"
                                  class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
@@ -290,7 +336,7 @@
                             <div class="flex flex-wrap justify-center">
                                 <div class="w-full px-4">
                                     <p class="font-light leading-relaxed text-slate-600 mb-4"><span
-                                            class="font-bold">Id :</span> {{ selectedUser?.userIdentifier }}
+                                            class="font-bold">Identifiant :</span> {{ selectedUser?.userIdentifier }}
                                     </p>
                                 </div>
                                 <div class="w-full px-4">
@@ -300,13 +346,8 @@
                                 </div>
                                 <div class="w-full px-4">
                                     <p class="font-light leading-relaxed text-slate-600 mb-4"><span
-                                            class="font-bold">Role : </span><span
+                                            class="font-bold">Permissions : </span><span
                                             class="lowercase">{{ selectedUser?.userRole?.substring( 5 )?.replace( '_', ' ' )}}</span>
-                                    </p>
-                                </div>
-                                <div class="w-full px-4">
-                                    <p class="font-light leading-relaxed text-slate-600 mb-4"><span
-                                            class="font-bold">Id : </span> 123205032
                                     </p>
                                 </div>
                             </div>
@@ -461,15 +502,15 @@
                                                 <input class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                                        id="isUserConnected" name="isUserConnected" ngModel
                                                        type="checkbox">
-                                                <label class="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                                <label class="py-4 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
                                                        for="isUserConnected">Actif</label>
                                             </div>
-                                            <div class="flex items-center pl-4 rounded border border-gray-200 dark:border-gray-700 w-1/2">
+                                            <div class="flex items-center pl-2 rounded border border-gray-200 dark:border-gray-700 w-1/2">
                                                 <input
                                                         class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                                         id="isUserNotBanned" name="isUserNotBanned"
                                                         ngModel type="checkbox">
-                                                <label class="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                                <label class="py-4 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
                                                        for="isUserNotBanned">Débloqué</label>
                                             </div>
                                         </div>
@@ -540,5 +581,224 @@
     <div *ngIf="showAddUserModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
     <!-- ADD USER MODAL -->
 
+    <!-- EDIT USER MODAL -->
+    <div *ngIf="showEditUserModal"
+         class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+        <div class="relative w-1/2 my-6 mx-auto max-w-6xl">
+            <!--content-->
+            <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <!--header-->
+                <div class="flex justify-end">
+                    <button (click)="showEditUserModal = !showEditUserModal"
+                            class="text-gray-700 text-3xl hover:text-gray-500 py-2 px-4">
+                        ×
+                    </button>
+                </div>
+                <!--body-->
+                <div class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 rounded-xl">
+                    <div class="px-6">
+                        <div class="border-b border-slate-200">
+                            <form #editUserForm="ngForm" (ngSubmit)="updateUser()">
+                                <div>
+                                    <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                                           for="editUserFirstName">Prénom</label>
+                                    <input
+                                            [(ngModel)]="editedUser.userFirstName"
+                                            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                            id="editUserFirstName"
+                                            name="userFirstName"
+                                            type="text"
+                                    />
+                                </div>
+                                <div class="mt-6">
+                                    <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                                           for="editUserLastName">Nom</label>
+                                    <input
+
+                                            [(ngModel)]="editedUser.userLastName"
+                                            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                            id="editUserLastName"
+                                            name="userLastName"
+                                            type="string"
+                                    />
+                                </div>
+                                <div class="mt-6">
+                                    <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                                           for="editUserAccountName">Identifiant</label>
+                                    <input
+                                            [(ngModel)]="editedUser.userAccountName"
+                                            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                            id="editUserAccountName"
+                                            name="userAccountName"
+                                            required
+                                            type="string"
+                                    />
+                                </div>
+                                <div class="mt-6">
+                                    <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                                           for="editUserEmail">Email</label>
+                                    <input
+                                            [(ngModel)]="editedUser.userEmail"
+                                            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                            id="editUserEmail"
+                                            name="userEmail"
+                                            type="string"
+                                    />
+                                </div>
+                                <div class="mt-6">
+                                    <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                                           for="editUserRole">Role de l'utilisateur</label>
+                                    <div class="relative inline-block w-full text-gray-700">
+                                        <select [(ngModel)]="editedUser.userRole"
+                                                class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"
+                                                id="editUserRole" name="userRole">
+                                            <option value="ROLE_USER">Utilisateur</option>
+                                            <option value="ROLE_HR">Rh</option>
+                                            <option value="ROLE_MANAGER">Manager</option>
+                                            <option value="ROLE_ADMIN">Administrateur</option>
+                                            <option value="ROLE_SUDO_ADMIN">Administrateur Sudo</option>
+                                        </select>
+                                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                                <path clip-rule="evenodd"
+                                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                      fill-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-6">
+                                    <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                                           for="editDropzone-file">Photo de compte</label>
+                                    <div class="flex justify-center items-center w-full">
+                                        <label class="flex flex-col justify-center items-center w-full h-1/2 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 p-4"
+                                               for="editDropzone-file">
+                                            <div class="flex flex-col justify-center items-center pt-3 pb-2">
+                                                <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none"
+                                                     stroke="currentColor" viewBox="0 0 24 24"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                                                          stroke-linecap="round"
+                                                          stroke-linejoin="round"
+                                                          stroke-width="2"></path>
+                                                </svg>
+                                                <p [hidden]="!fileUploadedName"
+                                                   class="mb-2 text-sm text-gray-500 dark:text-gray-400">{{ fileUploadedName }}</p>
+                                                <p [hidden]="fileUploadedName"
+                                                   class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                                        class="font-semibold">Cliqué ici pour charger</span>
+                                                </p>
+                                                <p [hidden]="fileUploadedName"
+                                                   class="text-xs text-gray-500 dark:text-gray-400">au format JPG</p>
+                                            </div>
+                                            <input (change)="onProfileImgChange($event)"
+                                                   class="hidden" id="editDropzone-file"
+                                                   name="userProfilePictureLink" type="file">
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <div class="mt-6">
+                                    <div class="mt-6">
+                                        <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">
+                                            Etats du comptes
+                                        </label>
+                                        <div class="flex w-full mb-8">
+                                            <div class="flex items-center pl-4 rounded border border-gray-200 dark:border-gray-700 w-1/2 mr-2">
+                                                <input [(ngModel)]="editedUser.isUserConnected"
+                                                       class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                       id="editIsUserConnected"
+                                                       name="isUserConnected"
+                                                       type="checkbox">
+                                                <label class="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                                       for="editIsUserConnected">
+                                                    Actif
+                                                </label>
+                                            </div>
+                                            <div class="flex items-center pl-4 rounded border border-gray-200 dark:border-gray-700 w-1/2">
+                                                <input
+                                                        [(ngModel)]="editedUser.isUserNotBanned"
+                                                        class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                        id="editIsUserNotBanned"
+                                                        name="isUserNotBanned" type="checkbox">
+                                                <label *ngIf="editedUser.isUserNotBanned"
+                                                       class="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                                       for="editIsUserNotBanned">
+                                                    Compte débloqué
+                                                </label>
+                                                <label *ngIf="!editedUser.isUserNotBanned"
+                                                       class="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                                       for="editIsUserNotBanned">
+                                                    Compte bloqué
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button
+                                            [disabled]="editUserForm.invalid"
+                                            class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 disabled:opacity-25"
+                                            type="submit"
+                                    >
+                <span *ngIf="!showLoading">
+                <svg class="inline mr-3 w-4 h-4 text-white animate-spin" fill="none" role="status"
+                     viewBox="0 0 100 101"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path
+                          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                          fill="#E5E7EB"/>
+                  <path
+                          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                          fill="currentColor"/>
+                </svg>
+                Chargement
+                </span>
+                                        <span *ngIf="showLoading">
+                Editer
+                </span>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- error notification -->
+                            <div *ngIf="showBanner"
+                                 class="relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md py-5 pl-6 pr-8 sm:pr-6">
+                                <div class="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
+                                    <div class="text-red-500">
+                                        <svg class="w-6 sm:w-5 h-6 sm:h-5" fill="none" stroke="currentColor"
+                                             stroke-width="2"
+                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                    d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="text-sm font-medium ml-3"></div>
+                                </div>
+                                <div class="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">
+                                    {{ notificationMsg }}
+                                </div>
+                                <div
+                                        (click)="showBanner = false"
+                                        class="absolute sm:relative sm:top-auto sm:right-auto ml-auto right-4 top-4 text-gray-400 hover:text-gray-800 cursor-pointer"
+                                >
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              stroke-width="2">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showEditUserModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+    <!-- EDIT USER MODAL -->
 </div>
 

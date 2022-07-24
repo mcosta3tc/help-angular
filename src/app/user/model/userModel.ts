@@ -1,26 +1,34 @@
 export class UserModel {
-    public userIdentifier!: string;
+    public id: number;
+    public userIdentifier: string;
     public userFirstName: string;
     public userLastName: string;
     public userAccountName: string;
     public userEmail: string;
     public userLastConnectionToDisplay!: Date;
-    public userSignUpDate!: Date;
-    public userProfilePictureLink!: string;
+    public userSignUpDate: Date;
+    public userProfilePictureLink: string;
     public isUserConnected: boolean;
     public isUserNotBanned: boolean;
     public userRole: string;
     public userPermissions: string[];
+    private userLastConnection: Date;
 
 
-    constructor(userFirstName: string, userLastName: string, userAccountName: string, userEmail: string, isUserConnected: boolean, isUserNotBanned: boolean, userRole: string, userPermissions: string[]) {
-        this.userFirstName = userFirstName;
-        this.userLastName = userLastName;
-        this.userAccountName = userAccountName;
-        this.userEmail = userEmail;
-        this.isUserConnected = isUserConnected;
-        this.isUserNotBanned = isUserNotBanned;
-        this.userRole = userRole;
-        this.userPermissions = userPermissions;
+    constructor() {
+        this.id = 0;
+        this.userIdentifier = '';
+        this.userFirstName = '';
+        this.userLastName = '';
+        this.userAccountName = '';
+        this.userEmail = '';
+        this.userLastConnectionToDisplay = new Date();
+        this.userLastConnection = new Date();
+        this.userSignUpDate = new Date();
+        this.userProfilePictureLink = '';
+        this.isUserConnected = false;
+        this.isUserNotBanned = false;
+        this.userRole = '';
+        this.userPermissions = [];
     }
 }
